@@ -1,5 +1,9 @@
+#*-------------------------------------------------*#
+
 import mysql.connector
 import say
+
+#*-------------------------------------------------*#
 
 def connect():
     try:
@@ -17,7 +21,7 @@ def connect():
         say.say(f"Error: {err}", "error")
         return None
     
-
+#*-------------------------------------------------*#
 
 def TableIfNone(cursor):
     try:
@@ -25,3 +29,5 @@ def TableIfNone(cursor):
         say.say("Table created", "success")
     except mysql.connector.Error as err:
         say.say(f"Error creating table: {err}", "error")
+
+#*-------------------------------------------------*#

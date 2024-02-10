@@ -7,14 +7,24 @@ from say import *
 from colors import *
 from functions import *
 
+#*-------------------------------------------------*#
+
+import os
+
+os.system('cls && title admin.py')
+
+#*-------------------------------------------------*#
+
 mydb = functions.connect()
 
 if mydb is not None:
-    print("1. list tables\n2. Create table users")
+    help = ("1. list tables + 2. Create table users\n 3. ... + 4. ...")
     while True:
         choice = input(f"{yellow}[{lightblack}{name}@{ip}{yellow}]{white} > ")
 
-        if choice == "1":
+        if choice == "help":
+            print(help)
+        elif choice == "1":
             mycursor = mydb.cursor()
 
             mycursor.execute("SHOW TABLES")
@@ -25,5 +35,10 @@ if mydb is not None:
             mycursor = mydb.cursor()
             TableIfNone(mycursor)
 
+        elif choice == "exit":
+            break
+
 else:
     say.say("Connection failed", "error")
+
+#*-------------------------------------------------*#

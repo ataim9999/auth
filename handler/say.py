@@ -1,6 +1,10 @@
+#*-------------------------------------------------*#
+
 import socket
 
 from colors import *
+
+#*-------------------------------------------------*#
 
 def say(message, type):
     if type == "success":
@@ -9,6 +13,8 @@ def say(message, type):
         print(f"{red}[{lightblack}{name}@{ip}{red}]{white} {message}")
     elif type == "warning":
         print(f"{yellow}[{lightblack}{name}@{ip}{yellow}]{white} {message}")
+
+#*-------------------------------------------------*#
 
 
 # ------------------------------
