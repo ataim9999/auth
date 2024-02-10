@@ -19,11 +19,11 @@ os.system('cls && title admin.py')
 mydb = functions.connect()
 
 if mydb is not None:
-    help = ("1. list tables + 2. Create table users")
+    help = ("1. list tables + 2. Create table users\n3. get all users + 4. clear database\n5. add admin")
     while True:
         choice = input(f"{yellow}[{lightblack}{name}@{ip}{yellow}]{white} > ")
         if choice == "help":
-            say.say((help), "warning")
+            print(help)
         elif choice == "1":
             mycursor = mydb.cursor()
             mycursor.execute("SHOW TABLES")
@@ -40,6 +40,10 @@ if mydb is not None:
         elif choice == "4":
             mycursor = mydb.cursor()
             clearDB(mydb)
+        elif choice == "5":
+            mycursor = mydb.cursor()
+            name = input("Name: ")
+            addAdmin(mydb, name, "admin")
         elif choice == "clear" or choice == "cls":
             os.system('cls')
             say.say("cleared", "success")

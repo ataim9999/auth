@@ -3,6 +3,8 @@
 import mysql.connector
 import say
 
+import hashlib
+
 #*-------------------------------------------------*#
 
 # function to connect to the mysql database
@@ -27,7 +29,7 @@ def connect():
 # function to create a table if it doesn't exist
 def TableIfNone(cursor):
     try:
-        cursor.execute("CREATE TABLE IF NOT EXISTS users (id INT AUTO_INCREMENT PRIMARY KEY, name VARCHAR(30), password VARCHAR(50))")
+        cursor.execute("CREATE TABLE IF NOT EXISTS users (id INT AUTO_INCREMENT PRIMARY KEY, name VARCHAR(30), password VARCHAR(50), role VARCHAR(10))")
         say.say("Table created", "success")
     except mysql.connector.Error as err:
         say.say(f"Error creating table: {err}", "error")
@@ -52,17 +54,51 @@ def hash(password):
 #*-------------------------------------------------*#
 
 # function to add new user to db
-# hash password
 def addUser(connection, name, hashPass):
     try:
+        role = "user"
         cursor = connection.cursor()
-        cursor.execute("INSERT INTO users (name, password) VALUES (%s, %s)", (name, hashPass))
+        cursor.execute("INSERT INTO users (name, password, role) VALUES (%s, %s, %s)", (name, hashPass, role))
         connection.commit()
         cursor.close()
         say.say("Registration successful", "success")
     except mysql.connector.Error as err:
         say.say(f"Error adding user: {err}", "error")
     
+#*-------------------------------------------------*#
+        
+# function to login user
+def login(connection, name, password):
+    try:
+        cursor = connection.cursor()
+        hashed_password = hashlib.sha256(password.encode()).hexdigest()
+        cursor.execute("SELECT * FROM users WHERE name = %s", (name,))
+        user = cursor.fetchone()
+        cursor.close()
+
+        if name == user[1] and hashed_password == user[2]:
+            return True
+        else:
+            return False
+    except mysql.connector.Error as err:
+        say.say(f"Error logging in: {err}", "error")
+
+
+#*-------------------------------------------------*#
+
+# function to add user to admin
+def addAdmin(connection, name, role):
+    try:
+        cursor = connection.cursor()
+        cursor.execute("UPDATE users SET role = %s WHERE name = %s", (role, name))
+        connection.commit()
+        cursor.close()
+        say.say("Set admin successfully", "success")
+    except mysql.connector.Error as err:
+        say.say(f"Error adding user: {err}", "error")
+
+
+
 #*-------------------------------------------------*#
         
 #function to clear info in db
