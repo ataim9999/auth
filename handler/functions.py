@@ -52,13 +52,28 @@ def hash(password):
 #*-------------------------------------------------*#
 
 # function to add new user to db
-def addUser(cursor, name, password):
-    hashPass = hash(password)
+def addUser(connection, name, hashPass):
     try:
+        cursor = connection.cursor()
         cursor.execute("INSERT INTO users (name, password) VALUES (%s, %s)", (name, hashPass))
-        say.say("User added", "success")
+        connection.commit()
+        cursor.close()
+        say.say("Registration successful", "success")
     except mysql.connector.Error as err:
         say.say(f"Error adding user: {err}", "error")
     
+#*-------------------------------------------------*#
+        
+#function to clear info in db
+def clearDB(connection):
+    try:
+        cursor = connection.cursor()
+        cursor.execute("DELETE FROM users")
+        connection.commit()
+        cursor.close()
+        say.say("Database cleared", "success")
+    except mysql.connector.Error as err:
+        say.say(f"Error clearing database: {err}", "error")
+
 #*-------------------------------------------------*#
 

@@ -32,12 +32,14 @@ if mydb is not None:
         elif choice == "2":
             mycursor = mydb.cursor()
             TableIfNone(mycursor)
-
         elif choice == "3":
             mycursor = mydb.cursor()
             getAllUsers(mycursor)
             users = mycursor.fetchall()
             print(users)
+        elif choice == "4":
+            mycursor = mydb.cursor()
+            clearDB(mydb)
         elif choice == "clear" or choice == "cls":
             os.system('cls')
             say.say("cleared", "success")
