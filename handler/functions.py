@@ -33,3 +33,32 @@ def TableIfNone(cursor):
         say.say(f"Error creating table: {err}", "error")
 
 #*-------------------------------------------------*#
+
+# return users from table
+def getAllUsers(cursor):
+    try:
+        cursor.execute("SELECT * FROM users")
+    except mysql.connector.Error as err:
+        say.say(f"Error getting users: {err}", "error")
+
+#*-------------------------------------------------*#
+        
+# function to hash password
+def hash(password):
+    import hashlib
+    hashPass = hashlib.sha256(password.encode()).hexdigest()
+    return hashPass
+
+#*-------------------------------------------------*#
+
+# function to add new user to db
+def addUser(cursor, name, password):
+    hashPass = hash(password)
+    try:
+        cursor.execute("INSERT INTO users (name, password) VALUES (%s, %s)", (name, hashPass))
+        say.say("User added", "success")
+    except mysql.connector.Error as err:
+        say.say(f"Error adding user: {err}", "error")
+    
+#*-------------------------------------------------*#
+
