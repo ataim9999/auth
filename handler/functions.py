@@ -52,6 +52,7 @@ def hash(password):
 #*-------------------------------------------------*#
 
 # function to add new user to db
+# hash password
 def addUser(connection, name, hashPass):
     try:
         cursor = connection.cursor()
