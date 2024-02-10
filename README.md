@@ -4,3 +4,4 @@
 
 <h1>Bugs</h1>
 <p>Not hashing password when register</p>
+<p>Style all shit</p>
