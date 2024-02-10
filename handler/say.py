@@ -6,6 +6,7 @@ from colors import *
 
 #*-------------------------------------------------*#
 
+# function of say
 def say(message, type):
     if type == "success":
         print(f"{purple}[{lightblack}{name}@{ip}{purple}]{white} {message}")

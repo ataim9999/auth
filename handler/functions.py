@@ -5,6 +5,7 @@ import say
 
 #*-------------------------------------------------*#
 
+# function to connect to the mysql database
 def connect():
     try:
         mydb = mysql.connector.connect(
@@ -23,6 +24,7 @@ def connect():
     
 #*-------------------------------------------------*#
 
+# function to create a table if it doesn't exist
 def TableIfNone(cursor):
     try:
         cursor.execute("CREATE TABLE IF NOT EXISTS users (id INT AUTO_INCREMENT PRIMARY KEY, name VARCHAR(30), password VARCHAR(50))")
