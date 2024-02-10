@@ -16,6 +16,7 @@ red = "\033[1;31m"
 yellow = "\033[1;33m"
 purple = "\033[1;35m"
 white = "\033[1;37m"
+blue = Fore.BLUE
 lightblack = Fore.LIGHTBLACK_EX
 
 #*-------------------------------------------------*#
