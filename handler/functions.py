@@ -114,3 +114,19 @@ def clearDB(connection):
 
 #*-------------------------------------------------*#
 
+def checkAdmin(connection, name):
+    try:
+        cursor = connection.cursor()
+        cursor.execute("SELECT role FROM users WHERE name = %s", (name,))
+        role = cursor.fetchone()
+        cursor.close()
+
+        if role == "admin":
+            return True
+        else:
+            return False
+        
+    except mysql.connector.Error as err:
+        say.say(f"Error checking admin: {err}", "error")
+
+#*-------------------------------------------------*#
